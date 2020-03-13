@@ -21,7 +21,6 @@ public class PaymentController {
     }
     @GetMapping(value = "payment/get/{id}")
     public CommonResult getPaymentById(@PathVariable("id") Long id){
-        new Exception().printStackTrace();
         Payment result = paymentService.getPaymentById(id);
         log.info("查询结果："+result.getSerial());
         if (result != null) return new CommonResult(200,"查询成功",result);
