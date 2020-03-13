@@ -2,6 +2,7 @@
 a demo project of spring cloud
 
 # branch doc
+## v1.0_eureka
 架构：
 单台服务调用方(cloud-consumer-order80)
 服务提供方集群(cloud-provider-payment8001,cloud-provider-payment8002)
