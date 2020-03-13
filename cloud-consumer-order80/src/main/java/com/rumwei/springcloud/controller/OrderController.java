@@ -13,7 +13,9 @@ import java.io.IOException;
 @Slf4j
 @RequestMapping("/consumer")
 public class OrderController {
-    private static final String PAYMENT_URL = "http://localhost:8003";
+    //private static final String PAYMENT_URL = "http://localhost:8003"; //未接入Eureka之前
+    //接入Eureka,服务名配合@LoadBalanced(配置一种选择服务主机的规则)注解可以找到具体的主机
+    private static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
     @Autowired
     RestTemplate restTemplate;
     @PostMapping("/payment/create")
