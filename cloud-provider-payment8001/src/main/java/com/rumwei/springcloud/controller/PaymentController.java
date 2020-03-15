@@ -47,6 +47,11 @@ public class PaymentController {
         });
         return this.discoveryClient;
     }
+    //用于验证自定义的负载均衡算法,lb即loadBalance
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB(){
+        return serverPort;
+    }
 
 
 
