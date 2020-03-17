@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 @Component
-@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT")
+@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT", fallback = OrderFallBackService.class)
 public interface OrderHystrixService {
     //拷贝cloud-provider-hystrix-payment8001Controller的代码
     @GetMapping("/payment/hystrix/ok/{id}")

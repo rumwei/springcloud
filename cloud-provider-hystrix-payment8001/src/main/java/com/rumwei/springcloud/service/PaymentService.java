@@ -25,7 +25,7 @@ public class PaymentService {
     //采用Hystrix,配合@EnableCircuitBreaker注解
     @HystrixCommand(fallbackMethod = "paymentInfo_TimeoutHandler",commandProperties = {
             //表示该方法的允许处理时间,单位ms.注意Eureka服务端调用客户端默认允许的延时1000ms
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "800")
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
     })
     public String paymentInfo_Timeout(Integer id){
         try{
