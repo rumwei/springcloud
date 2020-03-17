@@ -10,3 +10,13 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
+# 为将该服务交由9001监控而加的配置，同时@EnableCircuitBreaker注解也是必须的
+# 启动成功后，访问http://localhost:9001页面，在页面中依次填入
+# http://localhost:8001/actuator/hystrix.stream    2000  Title，然后点击monitor stream即可进入监控界面
+# 该页面只有在实时请求8001服务时，才会由数字的变化,监控图的标题就是方法名
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
