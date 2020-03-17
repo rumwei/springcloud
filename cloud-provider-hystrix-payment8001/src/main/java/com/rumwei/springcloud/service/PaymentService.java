@@ -1,11 +1,13 @@
 package com.rumwei.springcloud.service;
 
+import cn.hutool.core.util.IdUtil;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentService {
+    //==========服务降级
     //模拟可以正常返回的服务
     public String paymentInfo_OK(Integer id){
         return "线程池: "+Thread.currentThread().getName()+" paymentInfo_OK,id: "+id;
@@ -38,5 +40,25 @@ public class PaymentService {
     public String paymentInfo_TimeoutHandler(Integer id){
         //从下方返回的线程池名称可以看出，处理该方法的线程是HystrixTimer线程池，不再占用主线程池，即降级逻辑的执行不再影响其他接口服务的正常运行
         return "线程池: "+Thread.currentThread().getName()+" paymentInfo_TimeoutHandler,发生服务降级";
+    }
+
+    //==============服务熔断
+    //以下断路器有CLOSED(闭合,正常提供服务),OPEN(断开,表示服务不再可用)
+    //以下配置表示如果存在10次请求失败6次(10*60%)及以上，则该断路器从CLOSED切换到OPEN，在这期间所有请求会进行服务降级
+    //10s后，会尝试让服务处理一个请求(从OPEN切到Half-Open)，如果处理成功，则断路器切回CLOSED，并进入请求监控状态。如果处理失败，则再OPEN10s，如此重复循环下去
+    //另外用户可以配置一定的规则，当断路器在Half-Open状态时，放入的请求可以根据定义的规则来过滤；也可以不配置
+    @HystrixCommand(fallbackMethod = "paymentCircuitBreaker_fallback",commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled",value = "true"), //是否开启断路器
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold",value = "10"), //请求次数，默认20
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds",value = "20000"), //时间窗口期,此处即10s，默认5s
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage",value = "60"), //失败率达到多少后跳闸，默认50%
+    })
+    public String paymentCircuitBreaker(Integer id){
+        if (id < 0) throw new RuntimeException("8001's exception id不能为负数"); //模拟失败
+        String serialNumber = IdUtil.simpleUUID(); //来自HuTool工具包，类似UUID.random
+        return Thread.currentThread().getName()+"\t"+"调用成功，流水号："+serialNumber;
+    }
+    public String paymentCircuitBreaker_fallback(Integer id){
+        return "8001's fall back. id 不能为负数，请稍后再试，id："+id;
     }
 }

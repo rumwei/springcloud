@@ -32,4 +32,14 @@ public class PaymentController {
         System.err.println("ko");
         return "ko";
     }
+    //==========服务熔断
+    //首先请求http://localhost:8001/payment/circuit/9，可以正常返回
+    //然后疯狂请求http://localhost:8001/payment/circuit/-9，让错误请求比例超过60%
+    //然后请求http://localhost:8001/payment/circuit/9，发现也进降级逻辑了，然后等待10s左右，再次请求能正常返回了
+    @GetMapping("/payment/circuit/{id}")
+    public String paymentCircuitBreaker(@PathVariable("id") Integer id){
+        String result = paymentService.paymentCircuitBreaker(id);
+        System.err.println("8001's circuitBreaker "+result);
+        return result;
+    }
 }
