@@ -12,8 +12,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
  * config-test.yml
  * config-prod.yml
  * 文件内容：
- * server:
- *   port: 3344
+ * env:dev 或 test 或 prod
  * 4.新建服务端应用(即本应用cloud-config-center3344)
  * 5.启动应用，访问http://localhost:3344/master/config-dev.yml即可拿到配置内容.（延时较高，本地测试6s左右）
  * 读取规则：label:分支，application:服务名，profiles:环境
