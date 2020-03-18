@@ -13,3 +13,6 @@ Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
 同时利用Hystrix实现服务降级已经服务熔断功能，同时集成了hystrix-dashboard(cloud-consumer-hystrix-dashboard9001)可视化监控界面
 ## v3.0_gateway
 架构：网关服务(cloud-gateway-gateway9527) 网关管理的服务方集群(cloud-provider-payment8001,cloud-provider-payment8002) Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
+## v4.0_springcloud-config
+架构：配置中心客户端(cloud-config-client3355) 配置中心服务端(cloud-config-center3344) Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
+使用的配置仓库：https://github.com/rumwei/springcloud-config
