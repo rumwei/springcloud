@@ -19,4 +19,5 @@ Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
 ## v5.0_springcloud-bus
 架构：配置中心客户端(cloud-config-client3355) 配置中心服务端(cloud-config-center3344) Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
 使用的配置仓库：https://github.com/rumwei/springcloud-config
+集成消息总线，实现配置的全局通知刷新
 注：本分支非可用功能，因为需要预装RabbitMQ，同时本分支相比master新增内容没有推送到master分支中
