@@ -52,6 +52,11 @@ public class PaymentController {
     public String getPaymentLB(){
         return serverPort;
     }
+    //用于验证zipkin的链路信息收集功能
+    @GetMapping(value = "/payment/zipkin")
+    public String paymentZipKin(){
+        return serverPort+" hi, I am paymentZipKin server fall back!";
+    }
 
 
 

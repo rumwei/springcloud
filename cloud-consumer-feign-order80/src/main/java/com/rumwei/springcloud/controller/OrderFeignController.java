@@ -21,4 +21,8 @@ public class OrderFeignController {
 //    public CommonResult<Integer> save(@RequestBody Payment payment){
 //        return paymentFeignService.save(payment);
 //    }
+    @GetMapping(value = "/consumer/payment/zipkin")
+    public String paymentZipKin(){
+        return paymentFeignService.paymentZipKin();
+    }
 }

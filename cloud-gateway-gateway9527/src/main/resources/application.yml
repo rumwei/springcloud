@@ -6,7 +6,12 @@ server:
 # 该配置的效果等同于route/GatewayConfig类中的配置。一种是配置方式，一种是硬编码方式
 spring:
   application:
-    name: cloud-gateway
+    name: cloud-gateway-service
+  zipkin:
+    base-url: http://localhost:9411 #zipkin的服务端口
+  sleuth:
+    sampler:
+      probability: 1 #采样率 介于0到1之间，1表示全部采集
 #-----------------------------路由目标服务器单机配置--------------------------------
 #  cloud:
 #    gateway:
@@ -39,6 +44,11 @@ spring:
             - Path=/payment/lb/** #断言，匹配请求的url
           filters:
             - AddRequestParameter=username,guwei #对已经匹配进来的请求进行处理，往请求参数中新增key:username,value:guwei
+
+        - id: payment_routh3 #payment_routh1 路由ID，没有固定的规则要求，但要求唯一
+          uri: lb://cloud-payment-service #注册到Eureka的微服务名
+          predicates:
+            - Path=/payment/zipkin/** #断言，匹配请求的url
     loadbalancer:
       ribbon:
         enabled: false
@@ -85,14 +95,24 @@ spring:
 #Filter按起作用范围，分为局部过滤器(GatewayFilter)和全局过滤器(GlobalFilter)
 #---------------------------------过滤器Filter-----------------------------------
 
+#eureka:
+#  instance:
+#    hostname: cloud-gateway-service
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
 eureka:
-  instance:
-    hostname: cloud-gateway-service
   client:
-    register-with-eureka: true
-    fetch-registry: true
+    register-with-eureka: true #表示是否将自己注册到Eureka Server，默认为true
+    fetch-registry: true #是否从Eureka Server抓取已有的注册信息，默认true。单节点无所谓，集群必须配置为true才能配合ribbon使用负载均衡
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      #      defaultZone: http://localhost:7001/eureka 单机版本
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka #集群版
+  instance:
+    instance-id: gateway9527 #注册到Eureka Server的实例名称，会在Eureka的页面中显示
+    prefer-ip-address: true
 
 # 开启日志功能
 #logging:
