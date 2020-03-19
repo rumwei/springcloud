@@ -10,7 +10,20 @@ spring:
           uri: git@github.com:rumwei/springcloud-config.git #保存配置信息的仓库
           search-paths: springcloud-config #搜索目录
       label: master #仓库分支
+# RabbitMQ相关配置,3344扮演Cloud Bus角色，当配置更新时，用户向3344发送刷新命令，3344负责将消息通知到配置中心客户端3355和3366
+# 假设本地已经按照了RabbitMQ服务，其相关接口为5672
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   client:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+#rabbitMQ相关配置，暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'

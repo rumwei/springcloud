@@ -5,7 +5,7 @@
 # 'bootstrap.yml'文件，保证Bootstrap Context和Application Context配置的分离
 
 server:
-  port: 3355
+  port: 3366
 spring:
   application:
     name: config-client #注册进Eureka中心的微服务名
