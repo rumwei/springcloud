@@ -14,3 +14,6 @@ cloud-consumer-hystrix-dashboard9001/target/*
 cloud-gateway-gateway9527/target/*
 cloud-config-center3344/target/*
 cloud-config-client3355/target/*
+cloudalibaba-provider-payment9001/target/*
+cloudalibaba-provider-payment9002/target/*
+cloudalibaba-consumer-nacos-order83/target/*

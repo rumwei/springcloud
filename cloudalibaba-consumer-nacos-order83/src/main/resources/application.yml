@@ -1,0 +1,13 @@
+server:
+  port: 83
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+# 消费者将要去访问的微服务名称（nacos中成功注册的微服务提供者）
+# 该配置是用户自定义的配置，只是为了在程序中好取服务名
+service-url:
+  nacos-user-service-rumwei: http://nacos-payment-provider

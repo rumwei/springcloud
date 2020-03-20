@@ -55,3 +55,23 @@ Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
 
 ## v6.0_SpringCloud Sleuth
 以服务调用方cloud-consumer-feign-order80，经过Gateway网关cloud-gateway-gateway9527来调用服务提供方集群(cloud-provider-payment8001，cloud-provider-payment8002)，服务注册中心采用Eureka集群(cloud-eureka-server7001，cloud-eureka-server7002)为例来说明链路跟踪功能。
+
+## v7.0_cloud_alibaba_nacos_service_register
+引入SpringCloud Alibaba的nacos作为服务注册与发现中心，取代Eureka的作用
+
+服务注册中心：已下载并启动Nacos，主页http://localhost:8848/nacos
+
+服务提供方集群：cloudalibaba-provider-payment9001,cloudalibaba-provider-payment9002
+
+服务调用方：cloudalibaba-consumer-nacos-order83
+
+启动nacos，服务提供方集群以及服务调用方之后，即可通过调用方来访问服务方提供的服务
+
+同时在Nacos页面上配置不同实例不同的权重，则可以看到负载均衡的效果
+
+
+
+
+
+
+
