@@ -69,6 +69,13 @@ Eureka注册中心集群(cloud-eureka-server7001,cloud-eureka-server7002)
 
 同时在Nacos页面上配置不同实例不同的权重，则可以看到负载均衡的效果
 
+## v8.0_cloud_alibaba_nacos_config
+引入SpringCloud Alibaba的nacos作为配置中心，取代SpringCloud config组件功能
+
+服务注册中心：已下载并启动Nacos，主页http://localhost:8848/nacos
+
+配置中心客户端：cloudalibaba-config-nacos-client3377，可以获取nacos上的配置
+
 
 
 
