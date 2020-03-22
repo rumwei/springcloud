@@ -22,7 +22,7 @@
         <!--            <artifactId>cloud-api-commons</artifactId>-->
         <!--            <version>${project.version}</version>-->
         <!--        </dependency>-->
-        <!--alibaba sentinel-datasource-nacos-->
+        <!--alibaba sentinel-datasource-nacos 将sentinel中的配置保存进nacos-->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>

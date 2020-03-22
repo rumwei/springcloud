@@ -11,8 +11,19 @@ spring:
       transport:
         dashboard: localhost:8080
         port: 8719 #默认8719端口，假如被占用会自动从8719开始依次+1扫描，直至找到未被占用的端口
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+      datasource: #sentinel解析规则持久化进nacos，需要配合在nacos中新建下面对应dataId，groupId和data-type的配置文件(以下配置示例会有sentinel自动写入)
+        ds1:                                           ###########nacos中的配置内容示例################
+          nacos:                                       #[                                           #
+            server-addr: localhost:8848                #    {                                       #
+            dataId: ${spring.application.name}         #        "resource":"/rateLimit/byUrl",      # 资源名称
+            groupId: DEFAULT_GROUP                     #        "limitApp":"default",               # 来源应用
+            data-type: json                            #        "grade":1,                          # 阈值类型，0-线程数，1-QPS
+            rule-type: flow                            #        "count":1,                          # 单机阈值
+management:                                            #        "strategy":0,                       # 流控模式，0-直接，1-关联，2-链路
+  endpoints:                                           #        "controlBehavior":0,                # 流控效果，0-快速失败，1-Warm Up，2-排队等待
+    web:                                               #        "clusterMode":false,                # 是否集群
+      exposure:                                        #    }                                       #
+        include: '*'                                   #]                                           #
+feign:                                                 ###########nacos中的配置内容示例################
+  sentinel:
+    enabled: true #激活sentinel对feign的支持
