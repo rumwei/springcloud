@@ -1,0 +1,6 @@
+server:
+  port: 2002
+spring:
+  application:
+    name: seata-storage-service
+#该工程只是示意工程，不能正常运行
